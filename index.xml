@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>HOME on leetdatageek</title>
+    <link>http://leetdatageek.github.io/</link>
+    <description>Recent content in HOME on leetdatageek</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 20 May 2018 22:51:00 -0300</lastBuildDate>
+    
+	<atom:link href="http://leetdatageek.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>HUGO date problems. TL;DR: switch to YAML</title>
+      <link>http://leetdatageek.github.io/posts/hugo-toml-date-problem/</link>
+      <pubDate>Sun, 20 May 2018 22:51:00 -0300</pubDate>
+      
+      <guid>http://leetdatageek.github.io/posts/hugo-toml-date-problem/</guid>
+      <description> Introduction I was having tons of trouble exporting my blog. The date format used by ox-hugo was not recognized by the TOML parser. Who would have guessed that using other tool would do the trick.
+Procedure It&amp;rsquo;s as easy as adding #+hugo_front_matter_format: yaml to the beginning of the file.
+Conclusion Sometimes the small things matter. Keep this little snippet in high regard.
+Credits  ox-hugo post-yaml test site  </description>
+    </item>
+    
+    <item>
+      <title>My (Bare-bones) Gnus to Org workflow</title>
+      <link>http://leetdatageek.github.io/posts/my-gnus-to-org-workflow/</link>
+      <pubDate>Sun, 20 May 2018 22:36:00 -0300</pubDate>
+      
+      <guid>http://leetdatageek.github.io/posts/my-gnus-to-org-workflow/</guid>
+      <description>Introduction As a project starts to grow more and more complex communication-wise, we can notice the amount of tools involved under the task management umbrella increasing; since each client and even our own team has a predilection for a certain way of working. Thankfully email is a funnel we can rely on and use as a way to standarize our own queue. Emacs is super useful as a task planner through org-mode, and the question is &amp;ldquo;how can we avoid context switching from email to org?</description>
+    </item>
+    
+  </channel>
+</rss>

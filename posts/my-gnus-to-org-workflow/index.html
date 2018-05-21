@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My (Bare-bones) Gnus to Org workflow | leetdatageek</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+    <header>
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="http://leetdatageek.github.io/">/home/leetdatageek</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/">~/home</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/posts/">~/my posts</a>
+      </li>
+      
+
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title">My (Bare-bones) Gnus to Org workflow</span></h1>
+<h2 class="author">[myself]</h2>
+<h2 class="date">2018/05/20</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/categories/emacs">emacs</a> 
+  
+  
+  
+  
+</p>
+</div>
+
+
+
+<main>
+
+
+<h2 id="introduction">Introduction</h2>
+
+<p>As a project starts to grow more and more complex communication-wise, we can notice the amount of tools involved under the task management umbrella increasing; since each client and even our own team has a predilection for a certain way of working. Thankfully email is a funnel we can rely on and use as a way to standarize our own queue. Emacs is super useful as a task planner through org-mode, and the question is &ldquo;how can we avoid context switching from email to org?&rdquo;.</p>
+
+<h2 id="procedure">Procedure</h2>
+
+<h3 id="set-up">Set Up</h3>
+
+<p>First, we need to add the following lines to our <strong><code>~/.emacs</code></strong> file. In this example we use the FastMail IMAP server.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(setq epa-pinentry-mode <span style="color:#e6db74">&#39;loopback</span>)  <span style="color:#75715e">; this one is critical, actually</span>
+
+(setq gnus-select-method
+      <span style="color:#f92672">&#39;</span>(nnimap <span style="color:#e6db74">&#34;fastmail&#34;</span>
+               (nnimap-address <span style="color:#e6db74">&#34;imap.fastmail.com&#34;</span>)
+               (nnimap-server-port <span style="color:#e6db74">&#34;imaps&#34;</span>)
+               (nnimap-stream ssl)))</code></pre></div>
+
+<p>As you can notice we do not specify our credentials here, which is good since we will be using an encrypted file to store them. Before creating said file (which will actually hold our username and password) we must generate the GPG secret that will allow us to perform the encryption.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ gpg --gen-key</code></pre></div>
+
+<p>That&rsquo;s all the time we&rsquo;ll be spending in the terminal. Head back to emacs and visit the file named <strong><code>~/.authinfo.gpg</code></strong> and write the following line.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">machine imap.fastmail.com login &lt;USER&gt; password &lt;APP-PASSWORD&gt; port imaps</code></pre></div>
+
+<p>Save the file and in the popup window select the secret we just created to perform the encryption.</p>
+
+<h3 id="using-gnus">Using Gnus</h3>
+
+<p>Press <strong><code>M-x gnus</code></strong> and you will be prompted for the GPG secret you just created. Hit <strong><code>RET</code></strong>. After doing so you may or may not see a thing depending on the current status of your inbox. This is the <a href="https://www.gnu.org/software/emacs/manual/html_node/gnus/Listing-Groups.html#Listing-Groups">group view</a> and here you will be shown all the groups with unread messages.
+Press L to see all your groups (a.k.a Folders if we are talking about email) and press l (lowercase L) to see all the groups/folders with unread messages.
+Now you can visit any of them and start performing the usual mail tasks by pressing RET. Go ahead and visit an email.
+You are in the <a href="https://www.gnu.org/software/emacs/manual/html_node/gnus/Summary-Buffer.html#Summary-Buffer">summary buffer</a> and this represents the email tray as you know it. There are two things that can happen.</p>
+
+<ol>
+<li>You will only see the unread messages.</li>
+<li>You will see all the read ones.</li>
+</ol>
+
+<p>Anyhow, you can start toying with the messages.</p>
+
+<h4 id="marking-articles">Marking articles</h4>
+
+<p>All the marking commands understand the numeric prefix.</p>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>‘M c’</td>
+<td>Clear all readedness-marks from the current article</td>
+</tr>
+
+<tr>
+<td>‘M-u’</td>
+<td>(‘gnus-summary-clear-mark-forward’).  In other words, mark the article as unread.</td>
+</tr>
+
+<tr>
+<td>‘M t’ or ‘!’</td>
+<td>Tick the current article (‘gnus-summary-tick-article-forward’).</td>
+</tr>
+
+<tr>
+<td>‘M ?’ or ‘?’</td>
+<td>Mark the current article as dormant (‘gnus-summary-mark-as-dormant’).</td>
+</tr>
+
+<tr>
+<td>‘M d’ or ‘d’</td>
+<td>Mark the current article as read (‘gnus-summary-mark-as-read-forward’).</td>
+</tr>
+
+<tr>
+<td>‘D’</td>
+<td>Mark the current article as read and move point to the previous line (‘gnus-summary-mark-as-read-backward’).</td>
+</tr>
+
+<tr>
+<td>‘M k’ or ‘k’</td>
+<td>Mark all articles that have the same subject as the current one as read, and then select the next unread article (‘gnus-summary-kill-same-subject-and-select’).</td>
+</tr>
+
+<tr>
+<td>‘M K’ or ‘C-k’</td>
+<td>Mark all articles that have the same subject as the current one as read (‘gnus-summary-kill-same-subject’).</td>
+</tr>
+
+<tr>
+<td>‘M C’</td>
+<td>Mark all unread articles as read (‘gnus-summary-catchup’).</td>
+</tr>
+
+<tr>
+<td>‘M C-c’</td>
+<td>Mark all articles in the group as read—even the ticked and dormant articles (‘gnus-summary-catchup-all’).</td>
+</tr>
+
+<tr>
+<td>‘M H’</td>
+<td>Catchup the current group to point (before the point) (‘gnus-summary-catchup-to-here’).</td>
+</tr>
+
+<tr>
+<td>‘M h’</td>
+<td>Catchup the current group from point (after the point) (‘gnus-summary-catchup-from-here’).</td>
+</tr>
+
+<tr>
+<td>‘C-w’</td>
+<td>Mark all articles between point and mark as read (‘gnus-summary-mark-region-as-read’).</td>
+</tr>
+
+<tr>
+<td>‘M V k’</td>
+<td>Kill all articles with scores below the default score (or below the numeric prefix) (‘gnus-summary-kill-below’).</td>
+</tr>
+
+<tr>
+<td>‘M e’ or ‘E’</td>
+<td>Mark the current article as expirable (‘gnus-summary-mark-as-expirable’).</td>
+</tr>
+
+<tr>
+<td>‘M b’</td>
+<td>Set a bookmark in the current article (‘gnus-summary-set-bookmark’).</td>
+</tr>
+
+<tr>
+<td>‘M B’</td>
+<td>Remove the bookmark from the current article (‘gnus-summary-remove-bookmark’).</td>
+</tr>
+
+<tr>
+<td>‘M V c’</td>
+<td>Clear all marks from articles with scores over the default score (or over the numeric prefix) (‘gnus-summary-clear-above’).</td>
+</tr>
+
+<tr>
+<td>‘M V u’</td>
+<td>Tick all articles with scores over the default score (or over the numeric prefix) (‘gnus-summary-tick-above’).</td>
+</tr>
+
+<tr>
+<td>‘M V m’</td>
+<td>Prompt for a mark, and mark all articles with scores over the default score (or over the numeric prefix) with this mark (‘gnus-summary-clear-above’).</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="moving-email-around">Moving email around</h4>
+
+<p>We can even perform the <a href="https://www.gnu.org/software/emacs/manual/html_node/gnus/Mail-Group-Commands.html">standard email administration tasks</a> such as moving and copying messages.</p>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>B m</td>
+<td>Move the article from one mail group to another (gnus-summary-move-article). Marks will be preserved if gnus-preserve-marks is non-nil (which is the default).</td>
+</tr>
+
+<tr>
+<td>B c</td>
+<td>Copy the article from one group (mail group or not) to a mail group (gnus-summary-copy-article). Marks will be preserved if gnus-preserve-marks is non-nil (which is the default).</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="capturing-in-org-mode">Capturing in Org-mode</h4>
+
+<p>I was about to give up on this, until I decided to scroll down on the <a href="https://orgmode.org/manual/Template-expansion.html#FOOT91">template expansion</a> page from the org-mode guide. It&rsquo;s amazing how instructive paying attention can be. SMH.</p>
+
+<table>
+<thead>
+<tr>
+<th>Link type</th>
+<th>Available keywords</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>gnus, notmuch</td>
+<td>%:from %:fromname %:fromaddress</td>
+</tr>
+
+<tr>
+<td></td>
+<td>%:to   %:toname   %:toaddress</td>
+</tr>
+
+<tr>
+<td></td>
+<td>%:date (message date header field)</td>
+</tr>
+
+<tr>
+<td></td>
+<td>%:date-timestamp (date as active timestamp)</td>
+</tr>
+
+<tr>
+<td></td>
+<td>%:date-timestamp-inactive (date as inactive timestamp)</td>
+</tr>
+
+<tr>
+<td></td>
+<td>%:fromto (either &ldquo;to NAME&rdquo; or &ldquo;from NAME&rdquo;)(92)</td>
+</tr>
+
+<tr>
+<td>gnus</td>
+<td>%:group, for messages also all email fields</td>
+</tr>
+</tbody>
+</table>
+
+<p>Here&rsquo;s an example on how you could create a simple template using the full link to the email (%l) and the subject (%:subject) to generate a nice TODO entry.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(org-capture-templates
+   (quote
+    ((<span style="color:#e6db74">&#34;t&#34;</span> <span style="color:#e6db74">&#34;Todo&#34;</span>)
+     (<span style="color:#e6db74">&#34;tm&#34;</span> <span style="color:#e6db74">&#34;Mail&#34;</span> entry
+      (file+headline <span style="color:#e6db74">&#34;~/Dropbox/Private/ORG/inbox.org&#34;</span> <span style="color:#e6db74">&#34;INBOX&#34;</span>)
+      <span style="color:#e6db74">&#34;* TODO [[%l][%:subject]]&#34;</span>))))</code></pre></div>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>At the time I am just starting to figure out this wokflow, but it feels promising enough to document the required steps therefore subsequently making it easier for the newcomer to try it out.</p>
+
+<h2 id="credits">Credits</h2>
+
+<h3 id="references">References</h3>
+
+<ul>
+<li><a href="https://colinxy.github.io/software-installation/2016/09/24/emacs25-easypg-issue.html">Emacs 25 EasyPG Issue</a></li>
+<li><a href="https://www.emacswiki.org/emacs/GnusGmail">Gnus on EmacsWiki</a></li>
+</ul>
+
+</main>
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+    </footer>
+  </body>
+</html>
+
