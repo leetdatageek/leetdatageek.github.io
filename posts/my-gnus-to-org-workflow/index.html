@@ -73,21 +73,24 @@
 
 <p>First, we need to add the following lines to our <strong><code>~/.emacs</code></strong> file. In this example we use the FastMail IMAP server.</p>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(setq epa-pinentry-mode <span style="color:#e6db74">&#39;loopback</span>)  <span style="color:#75715e">; this one is critical, actually</span>
+<pre><code class="language-emacs-lisp">(setq epa-pinentry-mode 'loopback)  ; this one is critical, actually
 
 (setq gnus-select-method
-      <span style="color:#f92672">&#39;</span>(nnimap <span style="color:#e6db74">&#34;fastmail&#34;</span>
-               (nnimap-address <span style="color:#e6db74">&#34;imap.fastmail.com&#34;</span>)
-               (nnimap-server-port <span style="color:#e6db74">&#34;imaps&#34;</span>)
-               (nnimap-stream ssl)))</code></pre></div>
+      '(nnimap &quot;fastmail&quot;
+               (nnimap-address &quot;imap.fastmail.com&quot;)
+               (nnimap-server-port &quot;imaps&quot;)
+               (nnimap-stream ssl)))
+</code></pre>
 
 <p>As you can notice we do not specify our credentials here, which is good since we will be using an encrypted file to store them. Before creating said file (which will actually hold our username and password) we must generate the GPG secret that will allow us to perform the encryption.</p>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ gpg --gen-key</code></pre></div>
+<pre><code class="language-shell">$ gpg --gen-key
+</code></pre>
 
 <p>That&rsquo;s all the time we&rsquo;ll be spending in the terminal. Head back to emacs and visit the file named <strong><code>~/.authinfo.gpg</code></strong> and write the following line.</p>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">machine imap.fastmail.com login &lt;USER&gt; password &lt;APP-PASSWORD&gt; port imaps</code></pre></div>
+<pre><code class="language-shell">machine imap.fastmail.com login &lt;USER&gt; password &lt;APP-PASSWORD&gt; port imaps
+</code></pre>
 
 <p>Save the file and in the popup window select the secret we just created to perform the encryption.</p>
 
@@ -297,12 +300,13 @@ You are in the <a href="https://www.gnu.org/software/emacs/manual/html_node/gnus
 
 <p>Here&rsquo;s an example on how you could create a simple template using the full link to the email (%l) and the subject (%:subject) to generate a nice TODO entry.</p>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(org-capture-templates
+<pre><code class="language-emacs-lisp">(org-capture-templates
    (quote
-    ((<span style="color:#e6db74">&#34;t&#34;</span> <span style="color:#e6db74">&#34;Todo&#34;</span>)
-     (<span style="color:#e6db74">&#34;tm&#34;</span> <span style="color:#e6db74">&#34;Mail&#34;</span> entry
-      (file+headline <span style="color:#e6db74">&#34;~/Dropbox/Private/ORG/inbox.org&#34;</span> <span style="color:#e6db74">&#34;INBOX&#34;</span>)
-      <span style="color:#e6db74">&#34;* TODO [[%l][%:subject]]&#34;</span>))))</code></pre></div>
+    ((&quot;t&quot; &quot;Todo&quot;)
+     (&quot;tm&quot; &quot;Mail&quot; entry
+      (file+headline &quot;~/Dropbox/Private/ORG/inbox.org&quot; &quot;INBOX&quot;)
+      &quot;* TODO [[%l][%:subject]]&quot;))))
+</code></pre>
 
 <h2 id="conclusion">Conclusion</h2>
 
