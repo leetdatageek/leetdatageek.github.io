@@ -6,21 +6,19 @@
     <description>Recent content in Emacs on leetdatageek</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 20 May 2018 22:51:00 -0300</lastBuildDate>
+    <lastBuildDate>Wed, 23 May 2018 20:53:00 -0300</lastBuildDate>
     
 	<atom:link href="https://leetdatageek.github.io/categories/emacs/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>HUGO date problems. TL;DR: switch to YAML</title>
+      <title>HUGO date problems. TL;DR: update your HUGO binary</title>
       <link>https://leetdatageek.github.io/posts/hugo-toml-date-problem/</link>
-      <pubDate>Sun, 20 May 2018 22:51:00 -0300</pubDate>
+      <pubDate>Wed, 23 May 2018 20:53:00 -0300</pubDate>
       
       <guid>https://leetdatageek.github.io/posts/hugo-toml-date-problem/</guid>
-      <description> Introduction I was having tons of trouble exporting my blog. The date format used by ox-hugo was not recognized by the TOML parser. Who would have guessed that using other tool would do the trick.
-Procedure It&amp;rsquo;s as easy as adding #+hugo_front_matter_format: yaml to the beginning of the file.
-Conclusion Sometimes the small things matter. Keep this little snippet in high regard.
-Credits  ox-hugo post-yaml test site  </description>
+      <description>Introduction I was having tons of trouble exporting my blog. The date format used by ox-hugo was not recognized by the TOML parser. Who would have guessed that using other tool an up do date HUGO binary would do the trick.
+Procedure Fedora &amp;ndash; which is my distro at the time of writing this post &amp;ndash; makes available through the stable repo an older HUGO binary (v37) which apparently carries along this issue.</description>
     </item>
     
     <item>

@@ -1,117 +1,182 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>HUGO date problems. TL;DR: switch to YAML | leetdatageek</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
+<html lang='en'>
+
+<head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='Introduction I was having tons of trouble exporting my blog. The date format used by ox-hugo was not recognized by the TOML parser. Who would have guessed that using other tool an up do date HUGO binary would do the trick.
+Procedure Fedora &ndash; which is my distro at the time of writing this post &ndash; makes available through the stable repo an older HUGO binary (v37) which apparently carries along this issue.'>
+<meta name='theme-color' content='#ffcd00'>
+
+<meta property='og:title' content='HUGO date problems. TL;DR: update your HUGO binary • leetdatageek'>
+<meta property='og:description' content='Introduction I was having tons of trouble exporting my blog. The date format used by ox-hugo was not recognized by the TOML parser. Who would have guessed that using other tool an up do date HUGO binary would do the trick.
+Procedure Fedora &ndash; which is my distro at the time of writing this post &ndash; makes available through the stable repo an older HUGO binary (v37) which apparently carries along this issue.'>
+<meta property='og:url' content='https://leetdatageek.github.io/posts/hugo-toml-date-problem/'>
+<meta property='og:site_name' content='leetdatageek'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts'><meta property='article:published_time' content='2018-05-23T20:53:00-03:00'/><meta property='article:modified_time' content='2018-05-23T20:53:00-03:00'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.40.3" />
+
+  <title>HUGO date problems. TL;DR: update your HUGO binary • leetdatageek</title>
+  <link rel='canonical' href='https://leetdatageek.github.io/posts/hugo-toml-date-problem/'>
+  
+  
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='/assets/css/main.67e9c12b.css'><style>
+:root{--color-accent:#ffcd00;}
+</style>
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-119550604-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+</head>
+
+
+<body class='page type-posts'>
+
+  <div class='site'>
+
+    <a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+    <div class='main'>
+
+      <nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
+  <div class='container'>
     
-    <header>
+    <ul><li class='item'>
+        <a href='/'>HOME</a>
+      </li><li class='item'>
+        <a href='/posts/'>My Posts</a>
+      </li></ul>
+  </div>
+</nav>
 
-  
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-  <nav>
-    <ul>
-      
-      
-      <li class="pull-left ">
-        <a href="https://leetdatageek.github.io/">/home/leetdatageek</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="/">~/home</a>
-      </li>
-      
-      
-      <li class="pull-left ">
-        <a href="/posts/">~/my posts</a>
-      </li>
-      
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>leetdatageek</p><p class='desc site-desc'></p>
+          </div>
+        </div>
+      </header>
 
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>HUGO date problems. TL;DR: update your HUGO binary</h1>
       
 
-    </ul>
-  </nav>
-</header>
+    </div>
+    
+<div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2018-05-23T20:53:00-03:00'>2018, May 23</time>
+</span>
 
-  </head>
+  
+  
 
-  <body>
-    <br/>
-
-<div class="article-meta">
-<h1><span class="title">HUGO date problems. TL;DR: switch to YAML</span></h1>
-<h2 class="author">[myself]</h2>
-<h2 class="date">2018/05/20</h2>
-<p class="terms">
-  
-  
-  Categories: <a href="/categories/emacs">emacs</a> 
-  
-  
-  
-  
-</p>
 </div>
 
 
+  </div>
+</header>
 
-<main>
+  
+  
 
+  <div class='container entry-content'>
+  
 
 <h2 id="introduction">Introduction</h2>
 
-<p>I was having tons of trouble exporting my blog. The date format used by ox-hugo was not recognized by the TOML parser. Who would have guessed that using other tool would do the trick.</p>
+<p>I was having tons of trouble exporting my blog. The date format used by ox-hugo was not recognized by the TOML parser. Who would have guessed that using <del>other tool</del> <strong>an up do date HUGO binary</strong> would do the trick.</p>
 
 <h2 id="procedure">Procedure</h2>
 
-<p>It&rsquo;s as easy as adding <strong><code>#+hugo_front_matter_format: yaml</code></strong> to the beginning of the file.</p>
+<p>Fedora &ndash; which is my distro at the time of writing this post &ndash; makes available through the stable repo an older HUGO binary (v37) which apparently carries along <a href="https://github.com/gohugoio/hugo/issues/2100">this issue</a>. Go ahead and grab the proper executable from <a href="https://github.com/gohugoio/hugo/releases">the HUGO releases page</a> and place it within your path after removing the one you got through dnf/yum.
+Previously I could avoid the TOML date parsing issue by choosing YAML explicitly by placing <strong><code>#+hugo_front_matter_format: yaml</code></strong> at the beginning of the file.</p>
 
 <h2 id="conclusion">Conclusion</h2>
 
-<p>Sometimes the small things matter. Keep this little snippet in high regard.</p>
+<p>Keep your stuff up to date specially if somebody had the same problem a long time ago. It may have already been properly addressed.</p>
 
 <h2 id="credits">Credits</h2>
+
+<p>A <strong>HUGE</strong> shoutout to <a href="https://github.com/kaushalmodi">kaushalmodi</a> for taking the time to assist me on this matter by <a href="https://github.com/leetdatageek/leetdatageek/issues/1">reaching out to me</a>. I really appreciate it!</p>
 
 <ul>
 <li><a href="https://ox-hugo.scripter.co/test/singles/post-yaml/">ox-hugo post-yaml test site</a></li>
 </ul>
 
-</main>
+</div>
 
-    <footer>
-      
-<script>
-(function() {
-  function center_el(tagName) {
-    var tags = document.getElementsByTagName(tagName), i, tag;
-    for (i = 0; i < tags.length; i++) {
-      tag = tags[i];
-      var parent = tag.parentElement;
-      
-      if (parent.childNodes.length === 1) {
-        
-        if (parent.nodeName === 'A') {
-          parent = parent.parentElement;
-          if (parent.childNodes.length != 1) continue;
-        }
-        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
-      }
-    }
-  }
-  var tagNames = ['img', 'embed', 'object'];
-  for (var i = 0; i < tagNames.length; i++) {
-    center_el(tagNames[i]);
-  }
-})();
-</script>
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'>
+  <div class='categories'>
+  <span class='taxonomy-icon'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
+  
+</svg>
+</span>
+  <span class='screen-reader-text'>Categories: </span><a class='category' href='/categories/emacs'>Emacs</a></div>
 
-      
-    </footer>
-  </body>
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/posts/my-gnus-to-org-workflow/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>My (Bare-bones) Gnus to Org workflow</a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'>
+          
+          <div class='copyright'>
+  <p></p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__public_path__='\/assets\/js\/'</script>
+
+<script src='/assets/js/main.0d92f56c.js'></script>
+</body>
+
 </html>
 
